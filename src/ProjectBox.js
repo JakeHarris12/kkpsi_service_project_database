@@ -21,7 +21,7 @@ class ProjectBox extends Component{
 const styles = {
     dtd: {
         backgroundColor: "grey",
-        padding: "2rem, 2rem",
+        padding: "1rem",
         margin: "1rem",
         display: 'flex',
         flexDirection: 'column',
