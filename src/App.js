@@ -67,7 +67,7 @@ class App extends Component {
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function() {
       if(xmlHttp.readyState === 4 && xmlHttp.status === 200)
-        callback(xmlHttp.response, this.handleCallBackCallBack)
+        callback(xmlHttp.response)
     }
     xmlHttp.open("GET", `https://slack.com/api/oauth.access?client_id=600357668291.605536749281&client_secret=9f38bf428122b05d8c401893464bba5c&code=${code}&redirect_uri=http%3A%2F%2Flocalhost%3A3000`, true)
     xmlHttp.send(null)
