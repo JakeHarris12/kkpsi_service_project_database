@@ -5,15 +5,8 @@ import Main from './Main'
 import ProjectForm from './ProjectForm'
 import Login from './Login'
 import * as firebase from 'firebase'
+import config from './firebaseConfig'
 
-var config = {
-  apiKey: "AIzaSyAlVG-ZhugOQ0416JwEhVa6cj-83RkFm3s",
-  authDomain: "kky-gamma-pi-service-log.firebaseapp.com",
-  databaseURL: "https://kky-gamma-pi-service-log.firebaseio.com",
-  projectId: "kky-gamma-pi-service-log",
-  storageBucket: "kky-gamma-pi-service-log.appspot.com",
-  messagingSenderId: "1021937411777"
-}
 
 class App extends Component {
 

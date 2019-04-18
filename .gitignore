@@ -24,3 +24,6 @@ yarn-error.log*
 
 # Ian's IDE files
 .idea/*
+
+# Super secret Firebase Keys. Shhhhhh
+/src/firebaseConfig*
