@@ -4,11 +4,22 @@ import './App.css';
 import Main from './Main'
 import ProjectForm from './ProjectForm'
 import Login from './Login'
+import * as firebase from 'firebase'
+
+var config = {
+  apiKey: "AIzaSyAlVG-ZhugOQ0416JwEhVa6cj-83RkFm3s",
+  authDomain: "kky-gamma-pi-service-log.firebaseapp.com",
+  databaseURL: "https://kky-gamma-pi-service-log.firebaseio.com",
+  projectId: "kky-gamma-pi-service-log",
+  storageBucket: "kky-gamma-pi-service-log.appspot.com",
+  messagingSenderId: "1021937411777"
+}
+firebase.initializeApp(config)
 
 class App extends Component {
 
-  constructor(){
-    super()
+  constructor(props){
+    super(props)
 
     this.state = {
       projects: [
@@ -17,21 +28,21 @@ class App extends Component {
             author: "Jake Harris",
             desc: "This is service project test 1",
             num_people: "1",
-            date: "May 1st, 2019",                    
+            date: "May 1st, 2019",
         },
         {
             title: "Service Project 2",
             author: "Jake Harris",
             desc: "This is service project test 2",
             num_people: "3",
-            date: "May 7th, 2019",                    
+            date: "May 7th, 2019",
         },
         {
             title: "Service Project 3",
             author: "Jake Harris, Ian Ostermann",
             desc: "This is service project test 3",
             num_people: "2",
-            date: "May 15th, 2019",                    
+            date: "May 15th, 2019",
         },
       ],
 
@@ -80,7 +91,7 @@ class App extends Component {
             title: project.title,
             author: project.author,
             desc: project.desc,
-            num_people: project.num_people, 
+            num_people: project.num_people,
             date: project.date,
         }
     )
