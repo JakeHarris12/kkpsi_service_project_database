@@ -37,53 +37,58 @@ class ProjectForm extends Component{
                     </div>
                     <form className="ProjectCreate">
                         <p>
-                            <label htmlFor="title" className="TitleBox">Title</label>
+                            <label htmlFor="title" className="TitleBox" style={styles.formWords}>Title</label>
                             <input
                                 type="text"
                                 name="title"
                                 value={this.state.project.title}
                                 onChange={this.handleChange}
                                 autoFocus
+                                style={styles.form}
                             />
                         </p>
                         <p>
-                            <label htmlFor="author" className="AuthorBox">Who's Creating this Project?</label>
+                            <label htmlFor="author" className="AuthorBox" style={styles.formWords}>Who's Creating this Project?</label>
                             <input
                                 type="text"
                                 name="author"
                                 value={this.state.project.author}
                                 onChange={this.handleChange}
+                                style={styles.form}
                             />
                         </p>
                         <p>
-                            <label htmlFor="desc" className="DescBox">Description</label>
+                            <label htmlFor="desc" className="DescBox" style={styles.formWords}>Description</label>
                             <input 
                                 type="text"
                                 name="desc"
                                 value={this.state.project.desc}
                                 onChange={this.handleChange}
+                                style={styles.form}
                             />
                         </p>
                         <p>
-                            <label htmlFor="num_people" className="PeopleBox">How Many People are Needed?</label>
+                            <label htmlFor="num_people" className="PeopleBox" style={styles.formWords}>How Many People are Needed?</label>
                             <input 
                                 type="number"
                                 min="1"
                                 name="num_people"
                                 value={this.state.project.num_people}
                                 onChange={this.handleChange}
+                                style={styles.form}
                             />
                         </p>
                         <p>
-                            <label htmlFor="date" className="DateBox">When Will the Project be Started?</label>
+                            <label htmlFor="date" className="DateBox" style={styles.formWords}>When Will the Project be Started?</label>
                             <input
                                 type="date"
                                 name="date"
                                 value={this.state.project.date}
                                 onChange={this.handleChange}
+                                style={styles.form}
                             />
                         </p>
-                        <button type="button" onClick={this.handleSumbit}>Create</button>
+                        <button type="button" onClick={this.handleSumbit} style={styles.button}>Create</button>
                     </form>
                 </main>
             </div>
@@ -93,30 +98,17 @@ class ProjectForm extends Component{
 }
 
 const styles = {
-    titlebox: {
+    form: {
         flex: 1,
-        fontSize: '1.2rem',
-        border: 0,
+        borderRadius: '1rem',
+        border: '2px solid grey',
+        padding: '0.25rem'
     },
-    namebox: {
-        flex: 1,
-        fontSize: '1.2rem',
-        border: 0,
-    },
-    descbox: {
-        flex: 1,
-        fontSize: '1.2rem',
-        border: 0,
-    },
-    peoplebox: {
-        flex: 1,
-        fontSize: '1.2rem',
-        border: 0,
-    },
-    datebox: {
-        flex: 1,
-        fontSize: '1.2rem',
-        border: 0,
+    formWords: {
+        color: 'white',
+        margin: '1',
+        padding: '1rem 1rem',
+        fontFamily: 'Georgia',
     },
     projectformz: {
         backgroundColor: 'blue',
@@ -135,6 +127,15 @@ const styles = {
         alignItems: 'center',
         padding: '1rem 1rem',
         width: 'auto',
+    },
+    button: {
+        borderRadius: '1rem',
+        backgroundColor: 'white',
+        color: 'blue',
+        border: '2px solid grey',
+        fontFamily: 'Trebuchet MS',
+        fontSize: '1.2rem',
+        fontColor: 'blue',
     },
 }
 
