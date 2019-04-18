@@ -28,7 +28,7 @@ class App extends Component {
         },
         {
             title: "Service Project 3",
-            author: "Jake Harris",
+            author: "Jake Harris, Ian Ostermann",
             desc: "This is service project test 3",
             num_people: "2",
             date: "May 15th, 2019",                    
@@ -56,7 +56,7 @@ class App extends Component {
       }
   }
 
-  handleCallback = (response, callback) => {
+  handleCallback = (response) => {
     var result = JSON.parse(response)
     this.setState({user: result.user})
     this.setState({loggedin: true})
