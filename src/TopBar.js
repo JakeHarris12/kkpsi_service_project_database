@@ -10,6 +10,7 @@ class TopBar extends Component{
         return(
             <div className="TopBar" style={styles.topbar}>
                 <button className="AddProject" onClick={this.handleClick} style={styles.button}>Add a Project</button>
+                <h3>Hello, {this.props.user.name}!</h3>
                 <div className="Logo" style={styles.logo}>
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Kappa_Kappa_Psi_Coat_of_Arms.svg/1200px-Kappa_Kappa_Psi_Coat_of_Arms.svg.png" alt="" style={styles.logo}/>
                 </div>
