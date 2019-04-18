@@ -22,7 +22,10 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+package-lock.json
+
 # Ian's IDE files
 .idea/*
 
-package-lock.json
+# Super secret Firebase Keys. Shhhhhh
+/src/firebaseConfig.js
