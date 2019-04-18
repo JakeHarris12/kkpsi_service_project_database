@@ -14,12 +14,14 @@ var config = {
   storageBucket: "kky-gamma-pi-service-log.appspot.com",
   messagingSenderId: "1021937411777"
 }
-firebase.initializeApp(config)
 
 class App extends Component {
 
   constructor(props){
     super(props)
+
+    firebase.initializeApp(config)
+    this.db = firebase.firestore()
 
     this.state = {
       projects: [
@@ -71,8 +73,21 @@ class App extends Component {
     var result = JSON.parse(response)
     this.setState({user: result.user})
     this.setState({loggedin: true})
+    var data = {
+      name: result.user.name,
+      email: result.user.email,
+      id: result.user.id,
+      team: result.team.name,
+      teamID: result.team.id,
+      teamDomain: result.team.domain,
+      scope: result.scope,
+      ok: result.ok,
+      accessToken: result.access_token
+    }
+    console.log(result)
+    var docRef = this.db.collection('Users').doc(result.user.id)
+    docRef.set(data, {merge: true})
   }
-
   handleAuth = (code, callback) => {
     console.log("In handleAuth")
     var xmlHttp = new XMLHttpRequest();
