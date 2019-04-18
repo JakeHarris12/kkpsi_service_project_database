@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 
 import Main from './Main'
-import ProjectForm from './ProjectForm';
+import ProjectForm from './ProjectForm'
+import Login from './Login'
 
 class App extends Component {
 
@@ -34,8 +35,42 @@ class App extends Component {
         },
       ],
 
-      displayProjectForm: false
+      displayProjectForm: false,
+      loggedin: false,
+      user:{
+        name:"This shouldn't be here!"
+      },
     }
+  }
+
+  componentDidMount() {
+      console.log("component mounted")
+      var result = null,
+        tmp = []
+      window.location.search.substring(1).split("&").forEach(function (item) {
+        tmp = item.split("=")
+        if(tmp[0] === "code") result = decodeURIComponent(tmp[1])
+      })
+      if(result !== null){
+        this.handleAuth(result, this.handleCallback)
+      }
+  }
+
+  handleCallback = (response, callback) => {
+    var result = JSON.parse(response)
+    this.setState({user: result.user})
+    this.setState({loggedin: true})
+  }
+
+  handleAuth = (code, callback) => {
+    console.log("In handleAuth")
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() {
+      if(xmlHttp.readyState === 4 && xmlHttp.status === 200)
+        callback(xmlHttp.response, this.handleCallBackCallBack)
+    }
+    xmlHttp.open("GET", `https://slack.com/api/oauth.access?client_id=600357668291.605536749281&client_secret=9f38bf428122b05d8c401893464bba5c&code=${code}&redirect_uri=http%3A%2F%2Flocalhost%3A3000`, true)
+    xmlHttp.send(null)
   }
 
   addProject = (project) => {
@@ -51,7 +86,7 @@ class App extends Component {
     )
     this.setState({ projects })
     this.displayProjectForm()
-}
+  }
 
   displayProjectForm = () => {
     this.setState({
@@ -61,20 +96,29 @@ class App extends Component {
 
   render() {
 
-    const displayProjectForm = this.state.displayProjectForm
-    let page;
-
-    if(displayProjectForm){
-      page = <ProjectForm displayProjectForm={this.displayProjectForm} addProject={this.addProject}/>
+    const loggedin = this.state.loggedin
+    if(!loggedin){
+      return(
+        <div className="App">
+          <Login/>
+        </div>
+      )
     }else{
-      page = <Main projects={this.state.projects} displayProjectForm={this.displayProjectForm}/>
-    }
+      const displayProjectForm = this.state.displayProjectForm
+      let page;
 
-    return (
-      <div className="App">
-        {page}
-      </div>
-    );
+      if(displayProjectForm){
+        page = <ProjectForm displayProjectForm={this.displayProjectForm} addProject={this.addProject}/>
+      }else{
+        page = <Main projects={this.state.projects} displayProjectForm={this.displayProjectForm} user={this.state.user}/>
+      }
+
+      return (
+        <div className="App">
+          {page}
+        </div>
+      );
+    }
   }
 }
 

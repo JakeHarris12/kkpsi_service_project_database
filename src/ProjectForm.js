@@ -14,7 +14,6 @@ class ProjectForm extends Component{
 
     handleSumbit = (ev) => {
         ev.preventDefault()
-        console.log("Got here!")
         this.props.addProject(this.state.project)
         return false
     }
