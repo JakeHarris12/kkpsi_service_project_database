@@ -8,7 +8,7 @@ class Main extends Component {
 
         return(
             <div className="Main" style={styles.main}>
-                <TopBar displayProjectForm={this.props.displayProjectForm} user={this.props.user}/>
+                <TopBar displayProjectForm={this.props.displayProjectForm} logout={this.props.logout} user={this.props.user}/>
                 <div className="Body" style={styles.body}>
                     {
                         this.props.projects.map(prj => <ProjectBox key={prj.title} project={prj} />)

@@ -77,14 +77,15 @@ class App extends Component {
                 scope: result.scope,
                 ok: result.ok,
                 accessToken: result.access_token,
+                code: code,
             }
             console.log(result)
             // var docRef = this.db.collection('Users').doc(result.user.id)
             // docRef.set(data, {merge: true})
-            localStorage.setItem(`${code}`, JSON.stringify(data))
+            sessionStorage.setItem(`${code}`, JSON.stringify(data))
         } else {
             if (result.error === "code_already_used") {
-                var user = JSON.parse(localStorage.getItem(`${code}`))
+                var user = JSON.parse(sessionStorage.getItem(`${code}`))
                 if (user !== null) {
                     this.setState({ user })
                     this.setState({ loggedin: true })
@@ -122,6 +123,11 @@ class App extends Component {
         this.displayProjectForm()
     }
 
+    logout = (code) => {
+        this.setState({loggedin: false})
+        sessionStorage.clear()
+    }
+
     displayProjectForm = () => {
         this.setState({
             displayProjectForm: !this.state.displayProjectForm
@@ -144,7 +150,7 @@ class App extends Component {
             if (displayProjectForm) {
                 page = <ProjectForm displayProjectForm={this.displayProjectForm} addProject={this.addProject} />
             } else {
-                page = <Main projects={this.state.projects} displayProjectForm={this.displayProjectForm} user={this.state.user} />
+                page = <Main projects={this.state.projects} displayProjectForm={this.displayProjectForm} logout={this.logout} user={this.state.user} />
             }
 
             return (
