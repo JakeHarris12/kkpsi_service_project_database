@@ -4,49 +4,28 @@ import './App.css';
 import Main from './Main'
 import ProjectForm from './ProjectForm'
 import Login from './Login'
-import * as firebase from 'firebase'
-import config from './firebaseConfig'
-
+import base, {db} from './firebaseConfig'
 
 class App extends Component {
 
     constructor(props) {
         super(props)
 
-        firebase.initializeApp(config)
-        this.db = firebase.firestore()
-
         this.state = {
-            projects: [
-                {
-                    title: "Service Project 1",
-                    author: "Jake Harris",
-                    desc: "This is service project test 1",
-                    num_people: "1",
-                    date: "May 1st, 2019",
-                },
-                {
-                    title: "Service Project 2",
-                    author: "Jake Harris",
-                    desc: "This is service project test 2",
-                    num_people: "3",
-                    date: "May 7th, 2019",
-                },
-                {
-                    title: "Service Project 3",
-                    author: "Jake Harris, Ian Ostermann",
-                    desc: "This is service project test 3",
-                    num_people: "2",
-                    date: "May 15th, 2019",
-                },
-            ],
-
+            projects: [],
             displayProjectForm: false,
             loggedin: false,
             user: {
                 name: "This shouldn't be here!"
             },
         }
+        console.log("THESE ARE THE PROJECTS I THINK EXIST")
+        console.log(this.state.projects)
+        base.bindCollection('Projects', {
+            context: this,
+            state: 'projects',
+            asArray: true,
+        })
     }
 
     componentDidMount() {
@@ -60,6 +39,7 @@ class App extends Component {
         if (result !== null) {
             this.handleAuth(result, this.handleCallback)
         }
+
     }
 
     handleCallback = (response) => {
@@ -78,7 +58,7 @@ class App extends Component {
             accessToken: result.access_token
         }
         console.log(result)
-        var docRef = this.db.collection('Users').doc(result.user.id)
+        var docRef = db.collection('Users').doc(result.user.id)
         docRef.set(data, {merge: true})
     }
     handleAuth = (code, callback) => {
@@ -105,17 +85,7 @@ class App extends Component {
         )
         this.setState({projects})
         this.displayProjectForm()
-        var newProject = {
-            title: project.title,
-            author: project.author,
-            description: project.desc,
-            numPeopleNeeded: project.num_people,
-            date: project.date,
-        }
 
-        console.log("Adding Project: " + newProject)
-        var docRef = this.db.collection('Projects').doc(project.title)
-        docRef.set(newProject, {merge: true})
     }
 
     displayProjectForm = () => {
