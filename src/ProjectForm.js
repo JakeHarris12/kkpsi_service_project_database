@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import {css, StyleSheet} from "aphrodite";
 
 class ProjectForm extends Component{
@@ -22,8 +22,7 @@ class ProjectForm extends Component{
     handleChange = (ev) => {
         const project = {...this.state.project}
         const target = ev.target
-        const value = target.value
-        project[target.name] = value
+        project[target.name] = target.value
         this.setState({ project })
         //console.log(this.state.project)
     }
