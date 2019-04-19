@@ -62,31 +62,42 @@ class App extends Component {
       }
   }
 
-  handleCallback = (response) => {
+  handleCallback = (response, code) => {
     var result = JSON.parse(response)
-    this.setState({user: result.user})
-    this.setState({loggedin: true})
-    var data = {
-      name: result.user.name,
-      email: result.user.email,
-      id: result.user.id,
-      team: result.team.name,
-      teamID: result.team.id,
-      teamDomain: result.team.domain,
-      scope: result.scope,
-      ok: result.ok,
-      accessToken: result.access_token
+    if(result.ok === true){
+      this.setState({user: result.user})
+      this.setState({loggedin: true})
+      var data = {
+        name: result.user.name,
+        email: result.user.email,
+        id: result.user.id,
+        team: result.team.name,
+        teamID: result.team.id,
+        teamDomain: result.team.domain,
+        scope: result.scope,
+        ok: result.ok,
+        accessToken: result.access_token,
+      }
+      console.log(result)
+      // var docRef = this.db.collection('Users').doc(result.user.id)
+      // docRef.set(data, {merge: true})
+      localStorage.setItem(`${code}`, JSON.stringify(data))
+    }else{
+      if(result.error === "code_already_used"){
+         var user = JSON.parse(localStorage.getItem(`${code}`))
+         this.setState({user})
+         this.setState({loggedin: true})
+      }else{
+        this.setState({loggedin: false})
+      }
     }
-    console.log(result)
-    var docRef = this.db.collection('Users').doc(result.user.id)
-    docRef.set(data, {merge: true})
   }
   handleAuth = (code, callback) => {
     console.log("In handleAuth")
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function() {
       if(xmlHttp.readyState === 4 && xmlHttp.status === 200)
-        callback(xmlHttp.response)
+        callback(xmlHttp.response, code)
     }
     xmlHttp.open("GET", `https://slack.com/api/oauth.access?client_id=600357668291.605536749281&client_secret=9f38bf428122b05d8c401893464bba5c&code=${code}&redirect_uri=http%3A%2F%2Flocalhost%3A3000`, true)
     xmlHttp.send(null)
