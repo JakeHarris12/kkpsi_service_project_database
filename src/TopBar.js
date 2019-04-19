@@ -6,11 +6,18 @@ class TopBar extends Component{
         this.props.displayProjectForm()
     }
 
+    handleLogout = (ev) => {
+        this.props.logout(this.props.user.code)
+    }
+
     render(){
         return(
             <div className="TopBar" style={styles.topbar}>
-                <button className="AddProject" onClick={this.handleClick} style={styles.button}>Add a Project</button>
-                <h3>Hello, {this.props.user.name}!</h3>
+                <div className="header" style={styles.header}>
+                    <button className="AddProject" onClick={this.handleClick} style={styles.button}>Add a Project</button>
+                    <h3>Hello, {this.props.user.name}!</h3>
+                    <button className="Logout" onClick={this.handleLogout} style={styles.button}>Logout</button>
+                </div>
                 <div className="Logo" style={styles.logo}>
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Kappa_Kappa_Psi_Coat_of_Arms.svg/1200px-Kappa_Kappa_Psi_Coat_of_Arms.svg.png" alt="" style={styles.logo}/>
                 </div>
@@ -41,13 +48,17 @@ const styles = {
     },
     button: {
         display: 'block',
-        padding: '1rem',
-        margin: '0 1rem',
         borderRadius: '1rem',
         backgroundColor: 'blue',
         color: 'white',
         cursor: 'pointer',
         outline: 0,
+        width: '80px',
+    },
+    header: {
+        display: 'flex',
+        flexDirection: 'columns',
+        justifyContent: 'space-between',
     }
 }
 
