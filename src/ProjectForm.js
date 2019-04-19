@@ -24,7 +24,7 @@ class ProjectForm extends Component{
         const value = target.value
         project[target.name] = value
         this.setState({ project })
-        console.log(this.state.project)
+        //console.log(this.state.project)
     }
 
     render(){
