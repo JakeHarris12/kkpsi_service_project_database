@@ -8,9 +8,9 @@ class ProjectBox extends Component{
 
         return(
             <div className="ProjectBox" style={styles.dtd}>
-                <h3>{project.title} by {project.authors}</h3>
-                <p>{project.description}</p>
-                <p>Number of people needed: {project.numPeopleNeeded}</p>
+                <h3>{project.title} by {project.author}</h3>
+                <p>{project.desc}</p>
+                <p>Number of people needed: {project.num_people}</p>
                 <p>Project start date: {project.date}</p>
             </div>
         )

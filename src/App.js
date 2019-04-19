@@ -4,7 +4,7 @@ import './App.css';
 import Main from './Main'
 import ProjectForm from './ProjectForm'
 import Login from './Login'
-import base, {db} from './firebaseConfig'
+import base from './firebaseConfig'
 
 class App extends Component {
 
@@ -19,13 +19,6 @@ class App extends Component {
                 name: "This shouldn't be here!"
             },
         }
-        console.log("THESE ARE THE PROJECTS I THINK EXIST")
-        console.log(this.state.projects)
-        base.bindCollection('Projects', {
-            context: this,
-            state: 'projects',
-            asArray: true,
-        })
     }
 
     componentDidMount() {
@@ -40,26 +33,18 @@ class App extends Component {
             this.handleAuth(result, this.handleCallback)
         }
 
+        base.syncState('Projects', {
+            context: this,
+            state: 'projects',
+            asArray: true,
+        });
     }
 
     handleCallback = (response) => {
         var result = JSON.parse(response)
         this.setState({user: result.user})
         this.setState({loggedin: true})
-        var data = {
-            name: result.user.name,
-            email: result.user.email,
-            id: result.user.id,
-            team: result.team.name,
-            teamID: result.team.id,
-            teamDomain: result.team.domain,
-            scope: result.scope,
-            ok: result.ok,
-            accessToken: result.access_token
-        }
-        console.log(result)
-        var docRef = db.collection('Users').doc(result.user.id)
-        docRef.set(data, {merge: true})
+
     }
     handleAuth = (code, callback) => {
         console.log("In handleAuth")
