@@ -1,35 +1,35 @@
 import React, { Component } from 'react'
+import { StyleSheet, css} from 'aphrodite'
 
 class TopBar extends Component{
 
-    handleClick = (ev) => {
+    handleClick = () => {
         this.props.displayProjectForm()
     }
 
-    handleLogout = (ev) => {
+    handleLogout = () => {
         this.props.logout(this.props.user.code)
     }
 
     render(){
         return(
-            <div className="TopBar" style={styles.topbar}>
-                <div className="header" style={styles.header}>
-                    <button className="AddProject" onClick={this.handleClick} style={styles.button}>Add a Project</button>
+            <div className={css(styles.topbar)}>
+                <div className={css(styles.header)}>
+                    <button className={css(styles.button)} onClick={this.handleClick}>Add a Project</button>
                     <h3>Hello, {this.props.user.name}!</h3>
-                    <button className="Logout" onClick={this.handleLogout} style={styles.button}>Logout</button>
+                    <button className={css(styles.button)} onClick={this.handleLogout}>Logout</button>
                 </div>
-                <div className="Logo" style={styles.logo}>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Kappa_Kappa_Psi_Coat_of_Arms.svg/1200px-Kappa_Kappa_Psi_Coat_of_Arms.svg.png" alt="" style={styles.logo}/>
+                <div className={css(styles.logo)}>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Kappa_Kappa_Psi_Coat_of_Arms.svg/1200px-Kappa_Kappa_Psi_Coat_of_Arms.svg.png" alt="" className={css(styles.logo)}/>
                 </div>
-                <div className="Title" style={styles.title}>
+                <div className={css(styles.title)}>
                     <h1>Kappa Kappa Psi Service Project Database</h1>
                 </div>
             </div>
         )
     }
 }
-
-const styles = {
+const styles = StyleSheet.create({
     title: {
         color: 'blue',
         fontSize: '1.5rem',
@@ -54,12 +54,16 @@ const styles = {
         cursor: 'pointer',
         outline: 0,
         width: '80px',
+        ':hover' : {
+            backgroundColor: 'MediumBlue',
+        }
     },
     header: {
         display: 'flex',
         flexDirection: 'columns',
         justifyContent: 'space-between',
     }
-}
+})
+
 
 export default TopBar
