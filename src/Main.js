@@ -1,15 +1,16 @@
 import React, { Component } from 'react'
 import TopBar from './TopBar';
 import ProjectBox from './ProjectBox'
+import { StyleSheet, css} from 'aphrodite'
 
 class Main extends Component {
 
     render(){
 
         return(
-            <div className="Main" style={styles.main}>
+            <div className={css(styles.main)}>
                 <TopBar displayProjectForm={this.props.displayProjectForm} logout={this.props.logout} user={this.props.user}/>
-                <div className="Body" style={styles.body}>
+                <div className={css(styles.body)}>
                     {
                         this.props.projects.map(prj => <ProjectBox key={prj.title} project={prj} />)
                     }
@@ -19,7 +20,7 @@ class Main extends Component {
     }
 }
 
-const styles = {
+const styles = StyleSheet.create({
     body: {
         backgroundColor: 'blue',
         height: 'auto',
@@ -32,6 +33,6 @@ const styles = {
         backgroundColor: 'blue',
         height: '100vh',
     },
-}
+})
 
 export default Main
