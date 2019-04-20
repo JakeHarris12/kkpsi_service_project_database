@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
+import {css, StyleSheet} from "aphrodite";
 
 class ProjectForm extends Component{
 
@@ -21,23 +22,22 @@ class ProjectForm extends Component{
     handleChange = (ev) => {
         const project = {...this.state.project}
         const target = ev.target
-        const value = target.value
-        project[target.name] = value
+        project[target.name] = target.value
         this.setState({ project })
-        console.log(this.state.project)
+        //console.log(this.state.project)
     }
 
     render(){
         return(
-            <div className="ProjectForm" style={styles.projectformz}>
+            <div className={css(styles.projectformz)}>
                 <main>
-                    <div className="header" style={styles.top}>
-                        <h1 className="ProjectFormTitle" style={styles.header}>Project Form</h1>
-                        <h2 className="CreateProject" style={styles.header}>Create a Project</h2>
+                    <div className={css(styles.top)}>
+                        <h1 className={css(styles.header)}>Project Form</h1>
+                        <h2 className={css(styles.header)}>Create a Project</h2>
                     </div>
                     <form className="ProjectCreate">
                         <p>
-                            <label htmlFor="title" className="TitleBox" style={styles.formWords}>Title</label>
+                            <label htmlFor="title" className={css(styles.formWords)}>Title</label>
                             <input
                                 type="text"
                                 name="title"
@@ -48,7 +48,7 @@ class ProjectForm extends Component{
                             />
                         </p>
                         <p>
-                            <label htmlFor="author" className="AuthorBox" style={styles.formWords}>Who's Creating this Project?</label>
+                            <label htmlFor="author" className={css(styles.formWords)}>Who's Creating this Project?</label>
                             <input
                                 type="text"
                                 name="author"
@@ -58,7 +58,7 @@ class ProjectForm extends Component{
                             />
                         </p>
                         <p>
-                            <label htmlFor="desc" className="DescBox" style={styles.formWords}>Description</label>
+                            <label htmlFor="desc" className={css(styles.formWords)}>Description</label>
                             <input 
                                 type="text"
                                 name="desc"
@@ -68,7 +68,7 @@ class ProjectForm extends Component{
                             />
                         </p>
                         <p>
-                            <label htmlFor="num_people" className="PeopleBox" style={styles.formWords}>How Many People are Needed?</label>
+                            <label htmlFor="num_people" className={css(styles.formWords)}>How Many People are Needed?</label>
                             <input 
                                 type="number"
                                 min="1"
@@ -79,7 +79,7 @@ class ProjectForm extends Component{
                             />
                         </p>
                         <p>
-                            <label htmlFor="date" className="DateBox" style={styles.formWords}>When Will the Project be Started?</label>
+                            <label htmlFor="date" className={css(styles.formWords)}>When Will the Project be Started?</label>
                             <input
                                 type="date"
                                 name="date"
@@ -88,7 +88,7 @@ class ProjectForm extends Component{
                                 style={styles.form}
                             />
                         </p>
-                        <button type="button" onClick={this.handleSumbit} style={styles.button}>Create</button>
+                        <button type="button" onClick={this.handleSumbit} className={css(styles.button)}>Create</button>
                     </form>
                 </main>
             </div>
@@ -97,7 +97,7 @@ class ProjectForm extends Component{
 
 }
 
-const styles = {
+const styles = StyleSheet.create({
     form: {
         flex: 1,
         borderRadius: '1rem',
@@ -137,6 +137,6 @@ const styles = {
         fontSize: '1.2rem',
         fontColor: 'blue',
     },
-}
+})
 
 export default ProjectForm

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { StyleSheet, css} from 'aphrodite'
 
 class ProjectBox extends Component{
 
@@ -7,7 +8,7 @@ class ProjectBox extends Component{
         const project = this.props.project
 
         return(
-            <div className="ProjectBox" style={styles.dtd}>
+            <div className={css(styles.container)}>
                 <h3>{project.title} by {project.author}</h3>
                 <p>{project.desc}</p>
                 <p>Number of people needed: {project.num_people}</p>
@@ -18,8 +19,8 @@ class ProjectBox extends Component{
 
 }
 
-const styles = {
-    dtd: {
+const styles = StyleSheet.create({
+    container: {
         backgroundColor: "yellow",
         padding: "1rem",
         margin: "1rem",
@@ -31,7 +32,10 @@ const styles = {
         width: 'auto',
         height: 'auto',
         fontFamily: 'Trebuchet MS',
+        ':hover' : {
+            backgroundColor: 'Gold',
+        }
     },
-}
+})
 
 export default ProjectBox

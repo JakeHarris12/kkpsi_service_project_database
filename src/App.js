@@ -1,45 +1,18 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './App.css';
 
 import Main from './Main'
 import ProjectForm from './ProjectForm'
 import Login from './Login'
-import * as firebase from 'firebase'
-import config from './firebaseConfig'
-
+import base from './firebaseConfig'
 
 class App extends Component {
 
     constructor(props) {
         super(props)
 
-        firebase.initializeApp(config)
-        this.db = firebase.firestore()
-
         this.state = {
-            projects: [
-                {
-                    title: "Service Project 1",
-                    author: "Jake Harris",
-                    desc: "This is service project test 1",
-                    num_people: "1",
-                    date: "May 1st, 2019",
-                },
-                {
-                    title: "Service Project 2",
-                    author: "Jake Harris",
-                    desc: "This is service project test 2",
-                    num_people: "3",
-                    date: "May 7th, 2019",
-                },
-                {
-                    title: "Service Project 3",
-                    author: "Jake Harris, Ian Ostermann",
-                    desc: "This is service project test 3",
-                    num_people: "2",
-                    date: "May 15th, 2019",
-                },
-            ],
+            projects: [],
 
             displayProjectForm: false,
             loggedin: false,
@@ -60,7 +33,12 @@ class App extends Component {
         if (result !== null) {
             this.handleAuth(result, this.handleCallback)
         }
-    }
+        base.syncState('Projects', {
+            context: this,
+            state: 'projects',
+            asArray: true,
+        });
+    } 
 
     handleCallback = (response, code) => {
         var result = JSON.parse(response)
@@ -119,6 +97,7 @@ class App extends Component {
                 date: project.date,
             }
         )
+
         this.setState({ projects })
         this.displayProjectForm()
     }
