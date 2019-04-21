@@ -4,7 +4,7 @@ import { StyleSheet, css} from 'aphrodite'
 class TopBar extends Component{
 
     handleClick = () => {
-        this.props.displayProjectForm()
+        window.location.href="/create-project"
     }
 
     handleLogout = () => {
