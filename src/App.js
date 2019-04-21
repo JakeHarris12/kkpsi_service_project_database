@@ -117,6 +117,12 @@ class App extends Component {
         )
 
         this.setState({ projects })
+        console.log("before slack http requests")
+        var postData = {text: `A new service project just got added called '${project.title}!' Check it out!`}
+        var http = new XMLHttpRequest();
+        http.onreadystatechange = function (){}
+        http.open("POST", "https://hooks.slack.com/services/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", true)
+        http.send(JSON.stringify(postData))
     }
 
     logout = () => {
