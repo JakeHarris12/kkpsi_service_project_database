@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
         justifyContent: 'left',
         display: 'flex',
         flexDirection: 'columns',
+        flexWrap: "wrap",
     },
     main: {
         backgroundColor: 'blue',
