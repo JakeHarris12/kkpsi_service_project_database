@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Route, Switch, Redirect} from 'react-router-dom'
 import './App.css';
 
 import Main from './Main'
@@ -14,7 +15,6 @@ class App extends Component {
         this.state = {
             projects: [],
 
-            displayProjectForm: false,
             loggedin: false,
             user: {
                 name: "This shouldn't be here!"
@@ -22,8 +22,21 @@ class App extends Component {
         }
     }
 
-    componentDidMount() {
+    signedIn = () => {
+        return this.state.loggedin
+    }
+
+    showProjectForm = () => {
+        return this.state.displayProjectForm
+    }
+
+    componentWillMount() {
         console.log("component mounted")
+        if(sessionStorage.length !== 0){
+            this.setState({loggedin: true})
+            console.log(sessionStorage.getItem("user"))
+            this.setState({ user: JSON.parse(sessionStorage.getItem("user")) })
+        }
         var result = null,
             tmp = []
         window.location.search.substring(1).split("&").forEach(function (item) {
@@ -41,8 +54,10 @@ class App extends Component {
     } 
 
     handleCallback = (response, code) => {
+        console.log("Handling callback")
         var result = JSON.parse(response)
         if (result.ok === true) {
+            console.log("result is OK")
             this.setState({ user: result.user })
             this.setState({ loggedin: true })
             var data = {
@@ -60,10 +75,12 @@ class App extends Component {
             console.log(result)
             // var docRef = this.db.collection('Users').doc(result.user.id)
             // docRef.set(data, {merge: true})
-            sessionStorage.setItem(`${code}`, JSON.stringify(data))
+            sessionStorage.setItem("user", JSON.stringify(data))
         } else {
+            console.log(result.error)
             if (result.error === "code_already_used") {
-                var user = JSON.parse(sessionStorage.getItem(`${code}`))
+                console.log("code is already used")
+                var user = JSON.parse(sessionStorage.getItem("user"))
                 if (user !== null) {
                     this.setState({ user })
                     this.setState({ loggedin: true })
@@ -71,6 +88,7 @@ class App extends Component {
                     this.setState({ loggedin: false })
                 }
             } else {
+                console.log("some error occurred")
                 this.setState({ loggedin: false })
             }
         }
@@ -99,45 +117,55 @@ class App extends Component {
         )
 
         this.setState({ projects })
-        this.displayProjectForm()
     }
 
-    logout = (code) => {
+    logout = () => {
         this.setState({loggedin: false})
         sessionStorage.clear()
     }
 
-    displayProjectForm = () => {
-        this.setState({
-            displayProjectForm: !this.state.displayProjectForm
-        })
-    }
-
     render() {
 
-        const loggedin = this.state.loggedin
-        if (!loggedin) {
-            return (
-                <div className="App">
-                    <Login />
-                </div>
-            )
-        } else {
-            const displayProjectForm = this.state.displayProjectForm
-            let page;
 
-            if (displayProjectForm) {
-                page = <ProjectForm displayProjectForm={this.displayProjectForm} addProject={this.addProject} />
-            } else {
-                page = <Main projects={this.state.projects} displayProjectForm={this.displayProjectForm} logout={this.logout} user={this.state.user} />
-            }
-
-            return (
-                <div className="App">
-                    {page}
-                </div>
-            );
-        }
+        return(
+            <Switch>
+                <Route 
+                    path="/sign-in"
+                    render={navProps => (
+                        this.signedIn()
+                            ? <Redirect to="/projects" />
+                            : <Login/>
+                    )}
+                />
+                <Route
+                    path="/create-project"
+                    render={navProps => (
+                        this.signedIn()
+                            ? <ProjectForm {...navProps} addProject={this.addProject} />
+                            : <Redirect to="/sign-in" />
+                    )}
+                />
+                <Route
+                    path="/projects"
+                    render={navProps => (
+                        this.signedIn()
+                            ? <Main {...navProps} 
+                                    projects={this.state.projects}
+                                    logout={this.logout} 
+                                    user={this.state.user} 
+                                />
+                            : <Redirect to="/sign-in" />
+                    )}
+                />
+                <Route 
+                    render={() => (
+                        this.signedIn()
+                            ? <Redirect to="/projects" />
+                            : <Redirect to="/sign-in" />
+                    )}
+                />
+            </Switch>
+        )
     }
 }
 

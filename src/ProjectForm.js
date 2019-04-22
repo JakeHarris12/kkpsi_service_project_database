@@ -16,7 +16,13 @@ class ProjectForm extends Component{
     handleSumbit = (ev) => {
         ev.preventDefault()
         this.props.addProject(this.state.project)
+        window.location.href="/projects"
         return false
+    }
+
+    cancelSubmit = (ev) => {
+        ev.preventDefault()
+        window.location.href="/projects"
     }
 
     handleChange = (ev) => {
@@ -88,6 +94,7 @@ class ProjectForm extends Component{
                                 style={styles.form}
                             />
                         </p>
+                        <button type="button" onClick={this.cancelSubmit} className={css(styles.button)}>Cancel</button>
                         <button type="button" onClick={this.handleSumbit} className={css(styles.button)}>Create</button>
                     </form>
                 </main>
