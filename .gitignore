@@ -24,6 +24,8 @@ yarn-error.log*
 
 package-lock.json
 
+token.js
+
 # Ian's IDE files
 .idea/*
 

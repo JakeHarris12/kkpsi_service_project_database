@@ -6,6 +6,7 @@ import Main from './Main'
 import ProjectForm from './ProjectForm'
 import Login from './Login'
 import base from './firebaseConfig'
+import token, {client_id, client_secret} from './token'
 
 class App extends Component {
 
@@ -100,7 +101,7 @@ class App extends Component {
             if (xmlHttp.readyState === 4 && xmlHttp.status === 200)
                 callback(xmlHttp.response, code)
         }
-        xmlHttp.open("GET", `https://slack.com/api/oauth.access?client_id=600357668291.605536749281&client_secret=9f38bf428122b05d8c401893464bba5c&code=${code}&redirect_uri=http%3A%2F%2Flocalhost%3A3000`, true)
+        xmlHttp.open("GET", `https://slack.com/api/oauth.access?client_id=${client_id}&client_secret=${client_secret}&code=${code}&redirect_uri=http%3A%2F%2Flocalhost%3A3000`, true)
         xmlHttp.send(null)
     }
 
@@ -122,23 +123,19 @@ class App extends Component {
 
         var postData = {text: `A new service project was just created called '${project.title}!' Check it out!`}
         var http = new XMLHttpRequest();
-        http.onreadystatechange = function (){}
-        http.open("POST", "https://hooks.slack.com/services/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", true)
+        http.onreadystatechange = function (){
+            console.log(http.response)
+        }
+        http.open("POST", "https://hooks.slack.com/services/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", true)
         http.send(JSON.stringify(postData))
 
-        postData = {
-            token: "xoxp-600357668291-611779261541-611913568789-9d35d79f1735d6cd4b5a7035bf1ff637",
-            name,
-            validate: true
-        }
         var request = new XMLHttpRequest();
         request.onreadystatechange = function (){
-            console.log(request.statusText)
+            console.log(request.response)
         }
-        request.open("POST", "https://slack.com/api/channels.create", true)
-        // request.setRequestHeader("Authorization", "xoxp-600357668291-611779261541-611784809157-a79abf715b965f3363b242f9750358cf")
-        request.send(JSON.stringify(postData))
-
+        request.open("POST", `https://slack.com/api/channels.create?token=${token}&name=${name}&pretty=1`, true)
+        //request.send(JSON.stringify(postData))
+        request.send(null)
     }
 
     changeTitle = (title) => {
