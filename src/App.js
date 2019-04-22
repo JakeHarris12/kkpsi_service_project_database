@@ -117,12 +117,34 @@ class App extends Component {
         )
 
         this.setState({ projects })
-        console.log("before slack http requests")
-        var postData = {text: `A new service project just got added called '${project.title}!' Check it out!`}
+        
+        const name = this.changeTitle(project.title)
+
+        var postData = {text: `A new service project was just created called '${project.title}!' Check it out!`}
         var http = new XMLHttpRequest();
         http.onreadystatechange = function (){}
-        http.open("POST", "https://hooks.slack.com/services/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", true)
+        http.open("POST", "https://hooks.slack.com/services/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", true)
         http.send(JSON.stringify(postData))
+
+        postData = {
+            token: "xoxp-600357668291-611779261541-611913568789-9d35d79f1735d6cd4b5a7035bf1ff637",
+            name,
+            validate: true
+        }
+        var request = new XMLHttpRequest();
+        request.onreadystatechange = function (){
+            console.log(request.statusText)
+        }
+        request.open("POST", "https://slack.com/api/channels.create", true)
+        // request.setRequestHeader("Authorization", "xoxp-600357668291-611779261541-611784809157-a79abf715b965f3363b242f9750358cf")
+        request.send(JSON.stringify(postData))
+
+    }
+
+    changeTitle = (title) => {
+        title = title.replace(/\s+/g, '-').toLowerCase()
+        console.log(title)
+        return title
     }
 
     logout = () => {
