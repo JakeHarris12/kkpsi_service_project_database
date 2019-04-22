@@ -38,10 +38,13 @@ const styles = StyleSheet.create({
         margin: '-25vh 0 0 -25vh',
         borderRadius: '1rem',
         border: '2px solid grey',
+        textAlign: "center",
     },
     image: {
         height: "40px",
         width: "172px",
+        display: "block",
+        margin: "auto",
     }
 })
 

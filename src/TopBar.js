@@ -45,6 +45,8 @@ const styles = StyleSheet.create({
     logo: {
         height: '80px',
         wight: '80px',
+        display: "block",
+        margin: "auto",
     },
     button: {
         display: 'block',
