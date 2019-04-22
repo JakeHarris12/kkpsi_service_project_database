@@ -109,31 +109,36 @@ const styles = StyleSheet.create({
         flex: 1,
         borderRadius: '1rem',
         border: '2px solid grey',
-        padding: '0.25rem'
+        padding: '0.25rem',
+        textAlign: "center",
     },
     formWords: {
         color: 'white',
         margin: '1',
         padding: '1rem 1rem',
         fontFamily: 'Georgia',
+        textAlign: "center",
     },
     projectformz: {
         backgroundColor: 'blue',
         height: '100vh',
         alignItems: 'row',
         justifyContent: 'center',
+        textAlign: "center",
     },
     header: {
         color: 'blue',
         fontSize: '1.5rem',
         margin: '0',
         fontFamily: 'Georgia',
+        textAlign: "center",
     },
     top:{
         backgroundColor: 'white',
         alignItems: 'center',
         padding: '1rem 1rem',
         width: 'auto',
+        textAlign: "center",
     },
     button: {
         borderRadius: '1rem',
@@ -143,6 +148,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Trebuchet MS',
         fontSize: '1.2rem',
         fontColor: 'blue',
+        textAlign: "center",
     },
 })
 
