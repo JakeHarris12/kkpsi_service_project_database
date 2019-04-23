@@ -74,8 +74,6 @@ class App extends Component {
                 code: code,
             }
             console.log(result)
-            // var docRef = this.db.collection('Users').doc(result.user.id)
-            // docRef.set(data, {merge: true})
             sessionStorage.setItem("user", JSON.stringify(data))
         } else {
             console.log(result.error)
