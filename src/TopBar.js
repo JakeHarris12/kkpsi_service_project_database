@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { StyleSheet, css} from 'aphrodite'
 
+const KKY_BLUE = "#09268a"
+const KKY_GOLD = "#ffc61e"
+
 class TopBar extends Component{
 
     handleClick = () => {
@@ -31,7 +34,7 @@ class TopBar extends Component{
 }
 const styles = StyleSheet.create({
     title: {
-        color: 'blue',
+        color: KKY_BLUE,
         fontSize: '1.5rem',
         margin: '0',
         fontFamily: 'Georgia',
@@ -51,7 +54,7 @@ const styles = StyleSheet.create({
     button: {
         display: 'block',
         borderRadius: '1rem',
-        backgroundColor: 'blue',
+        backgroundColor: KKY_BLUE,
         color: 'white',
         cursor: 'pointer',
         outline: 0,

@@ -1,6 +1,9 @@
 import React, {Component} from 'react'
 import {css, StyleSheet} from "aphrodite";
 
+const KKY_BLUE = "#09268a"
+const KKY_GOLD = "#ffc61e"
+
 class ProjectForm extends Component{
 
     state = {
@@ -120,14 +123,14 @@ const styles = StyleSheet.create({
         textAlign: "center",
     },
     projectformz: {
-        backgroundColor: 'blue',
+        backgroundColor: KKY_BLUE,
         height: '100vh',
         alignItems: 'row',
         justifyContent: 'center',
         textAlign: "center",
     },
     header: {
-        color: 'blue',
+        color: KKY_BLUE,
         fontSize: '1.5rem',
         margin: '0',
         fontFamily: 'Georgia',

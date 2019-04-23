@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import {css, StyleSheet} from "aphrodite";
 
+const KKY_BLUE = "#09268a"
+const KKY_GOLD = "#ffc61e"
+
 class Login extends Component{
 
     render(){
@@ -22,7 +25,7 @@ class Login extends Component{
 
 const styles = StyleSheet.create({
     h:{
-        color: 'blue',
+        color: KKY_BLUE,
         margin: '0',
         fontFamily: 'Georgia',
     },

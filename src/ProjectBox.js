@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { StyleSheet, css} from 'aphrodite'
 
+const KKY_BLUE = "#09268a"
+const KKY_GOLD = "#ffc61e"
+
 class ProjectBox extends Component{
 
     render(){
@@ -21,7 +24,7 @@ class ProjectBox extends Component{
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: "yellow",
+        backgroundColor: KKY_GOLD,
         padding: "1rem",
         margin: "1rem",
         display: 'flex',
