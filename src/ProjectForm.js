@@ -14,7 +14,7 @@ class ProjectForm extends Component{
             desc: '',
             num_people: '',
             date: '',
-        }
+        },
     }
 
     handleSumbit = (ev) => {
@@ -68,8 +68,9 @@ class ProjectForm extends Component{
                             />
                         </p>
                         <p>
+                        {/*    <EditorConvertToHTML />*/}
                             <label htmlFor="desc" className={css(styles.formWords)}>Description</label>
-                            <input 
+                            <input
                                 type="text"
                                 name="desc"
                                 value={this.state.project.desc}

@@ -16,6 +16,7 @@ class ProjectBox extends Component{
                 <p>{project.desc}</p>
                 <p>Number of people needed: {project.num_people}</p>
                 <p>Project start date: {project.date}</p>
+                <button><i className="fas fa-cog"></i></button>
             </div>
         )
     }
