@@ -6,6 +6,7 @@ import Main from './Main'
 import ProjectForm from './ProjectForm'
 import Login from './Login'
 import base from './firebaseConfig'
+import token, {client_id, client_secret} from './token'
 
 class App extends Component {
 
@@ -100,7 +101,7 @@ class App extends Component {
             if (xmlHttp.readyState === 4 && xmlHttp.status === 200)
                 callback(xmlHttp.response, code)
         }
-        xmlHttp.open("GET", `https://slack.com/api/oauth.access?client_id=600357668291.605536749281&client_secret=9f38bf428122b05d8c401893464bba5c&code=${code}&redirect_uri=http%3A%2F%2Flocalhost%3A3000`, true)
+        xmlHttp.open("GET", `https://slack.com/api/oauth.access?client_id=${client_id}&client_secret=${client_secret}&code=${code}&redirect_uri=http%3A%2F%2Flocalhost%3A3000`, true)
         xmlHttp.send(null)
     }
 
@@ -117,6 +118,30 @@ class App extends Component {
         )
 
         this.setState({ projects })
+        
+        const name = this.changeTitle(project.title)
+
+        var postData = {text: `A new service project was just created called '${project.title}!' Check it out!`}
+        var http = new XMLHttpRequest();
+        http.onreadystatechange = function (){
+            console.log(http.response)
+        }
+        http.open("POST", "https://hooks.slack.com/services/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", true)
+        http.send(JSON.stringify(postData))
+
+        var request = new XMLHttpRequest();
+        request.onreadystatechange = function (){
+            console.log(request.response)
+        }
+        request.open("POST", `https://slack.com/api/channels.create?token=${token}&name=${name}&pretty=1`, true)
+        //request.send(JSON.stringify(postData))
+        request.send(null)
+    }
+
+    changeTitle = (title) => {
+        title = title.replace(/\s+/g, '-').toLowerCase()
+        console.log(title)
+        return title
     }
 
     logout = () => {
