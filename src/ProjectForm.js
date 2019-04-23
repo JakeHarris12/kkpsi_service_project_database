@@ -1,5 +1,9 @@
 import React, {Component} from 'react'
-import {css, StyleSheet} from "aphrodite";
+import {css, StyleSheet} from 'aphrodite'
+import EditorConvertToHTML from './MarkdownEditor'
+
+const KKY_BLUE = "#09268a"
+const KKY_GOLD = "#ffc61e"
 
 class ProjectForm extends Component{
 
@@ -109,31 +113,36 @@ const styles = StyleSheet.create({
         flex: 1,
         borderRadius: '1rem',
         border: '2px solid grey',
-        padding: '0.25rem'
+        padding: '0.25rem',
+        textAlign: "center",
     },
     formWords: {
         color: 'white',
         margin: '1',
         padding: '1rem 1rem',
         fontFamily: 'Georgia',
+        textAlign: "center",
     },
     projectformz: {
-        backgroundColor: 'blue',
+        backgroundColor: KKY_BLUE,
         height: '100vh',
         alignItems: 'row',
         justifyContent: 'center',
+        textAlign: "center",
     },
     header: {
-        color: 'blue',
+        color: KKY_BLUE,
         fontSize: '1.5rem',
         margin: '0',
         fontFamily: 'Georgia',
+        textAlign: "center",
     },
     top:{
         backgroundColor: 'white',
         alignItems: 'center',
         padding: '1rem 1rem',
         width: 'auto',
+        textAlign: "center",
     },
     button: {
         borderRadius: '1rem',
@@ -143,6 +152,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Trebuchet MS',
         fontSize: '1.2rem',
         fontColor: 'blue',
+        textAlign: "center",
     },
 })
 

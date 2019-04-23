@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import {css, StyleSheet} from "aphrodite"
 import {client_id} from './token'
 
+const KKY_BLUE = "#09268a"
+const KKY_GOLD = "#ffc61e"
+
 class Login extends Component{
 
     render(){
@@ -26,7 +29,7 @@ class Login extends Component{
 
 const styles = StyleSheet.create({
     h:{
-        color: 'blue',
+        color: KKY_BLUE,
         margin: '0',
         fontFamily: 'Georgia',
     },
@@ -42,10 +45,13 @@ const styles = StyleSheet.create({
         margin: '-25vh 0 0 -25vh',
         borderRadius: '1rem',
         border: '2px solid grey',
+        textAlign: "center",
     },
     image: {
         height: "40px",
         width: "172px",
+        display: "block",
+        margin: "auto",
     }
 })
 

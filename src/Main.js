@@ -3,6 +3,9 @@ import TopBar from './TopBar';
 import ProjectBox from './ProjectBox'
 import { StyleSheet, css} from 'aphrodite'
 
+const KKY_BLUE = "#09268a"
+const KKY_GOLD = "#ffc61e"
+
 class Main extends Component {
 
     render(){
@@ -28,16 +31,17 @@ class Main extends Component {
 
 const styles = StyleSheet.create({
     body: {
-        backgroundColor: 'blue',
+        backgroundColor: KKY_BLUE,
         height: 'auto',
         alignItems: 'row',
         justifyContent: 'left',
         display: 'flex',
         flexDirection: 'columns',
+        flexWrap: "wrap",
     },
     main: {
-        backgroundColor: 'blue',
-        height: '100vh',
+        backgroundColor: KKY_BLUE,
+        height: 'auto',
     },
 })
 
