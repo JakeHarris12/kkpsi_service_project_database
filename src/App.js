@@ -99,7 +99,7 @@ class App extends Component {
             if (xmlHttp.readyState === 4 && xmlHttp.status === 200)
                 callback(xmlHttp.response, code)
         }
-        xmlHttp.open("GET", `https://slack.com/api/oauth.access?client_id=${client_id}&client_secret=${client_secret}&code=${code}&redirect_uri=http%3A%2F%2Flocalhost%3A3000`, true)
+        xmlHttp.open("GET", `https://slack.com/api/oauth.access?client_id=${client_id}&client_secret=${client_secret}&code=${code}&redirect_uri=https%3A%2F%2Fkky-gamma-pi-service-log.firebaseapp.com`, true)
         xmlHttp.send(null)
     }
 

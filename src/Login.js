@@ -9,7 +9,7 @@ class Login extends Component{
 
     render(){
 
-        const link = `https://slack.com/oauth/authorize?scope=identity.basic,identity.email,identity.team,identity.avatar&client_id=${client_id}&redirect_uri=http%3A%2F%2Flocalhost%3A3000`
+        const link = `https://slack.com/oauth/authorize?scope=identity.basic,identity.email,identity.team,identity.avatar&client_id=${client_id}&redirect_uri=https%3A%2F%2Fkky-gamma-pi-service-log.firebaseapp.com`
 
         return(
             <div className={css(styles.login)}>
