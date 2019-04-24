@@ -31,3 +31,4 @@ token.js
 
 # Super secret Firebase Keys. Shhhhhh
 /src/firebaseConfig.js
+.firebase
