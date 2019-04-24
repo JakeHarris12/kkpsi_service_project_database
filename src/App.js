@@ -124,11 +124,13 @@ class App extends Component {
         http.onreadystatechange = function (){
             console.log(http.response)
         }
-        http.open("POST", "https://hooks.slack.com/services/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", true)
+        var messageData = `A new service project was just created called '${project.title}!' Check it out!`
+        http.open("POST", `https://hooks.slack.com/services/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?text=${messageData}&pretty=1`, true)
         http.send(JSON.stringify(postData))
 
         var request = new XMLHttpRequest();
         request.onreadystatechange = function (){
+            console.log('this is the response that I got:')
             console.log(request.response)
         }
         request.open("POST", `https://slack.com/api/channels.create?token=${token}&name=${name}&pretty=1`, true)
