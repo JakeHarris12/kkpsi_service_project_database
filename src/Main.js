@@ -8,6 +8,7 @@ const KKY_GOLD = "#ffc61e"
 
 class Main extends Component {
 
+    // Here we render the Main components of our app 
     render(){
 
         return(

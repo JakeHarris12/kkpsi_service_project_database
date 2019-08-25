@@ -6,6 +6,7 @@ const KKY_GOLD = "#ffc61e"
 
 class ProjectBox extends Component{
 
+    // This component represents the boxes on the main page that represent projects
     render(){
 
         const project = this.props.project

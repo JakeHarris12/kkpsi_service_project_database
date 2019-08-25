@@ -6,14 +6,17 @@ const KKY_GOLD = "#ffc61e"
 
 class TopBar extends Component{
 
+    // Handle when the Create Project Button is pressed
     handleClick = () => {
         window.location.href="/create-project"
     }
 
+    // Handle when the logout button is pressed
     handleLogout = () => {
         this.props.logout(this.props.user.code)
     }
 
+    // This is the HTML for the top of the main page
     render(){
         return(
             <div className={css(styles.topbar)}>
