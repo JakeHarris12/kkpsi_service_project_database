@@ -116,6 +116,7 @@ class App extends Component {
             if (xmlHttp.readyState === 4 && xmlHttp.status === 200)
                 callback(xmlHttp.response, code)
         }
+      
         // Send GET request to Slack
         // Right now, it redirects to http://localhost:3000 upon completion. This needs to change later.
         xmlHttp.open("GET", `https://slack.com/api/oauth.access?client_id=${client_id}&client_secret=${client_secret}&code=${code}&redirect_uri=http%3A%2F%2Flocalhost%3A3000`, true)
@@ -149,12 +150,14 @@ class App extends Component {
         http.onreadystatechange = function (){
             console.log(http.response)
         }
+
         http.open("POST", `${general_hook}`, true)
         http.send(JSON.stringify(postData))
 
         // Creates new channel for the project in Slack
         var request = new XMLHttpRequest();
         request.onreadystatechange = function (){
+            console.log('this is the response that I got:')
             console.log(request.response)
         }
         request.open("POST", `https://slack.com/api/channels.create?token=${token}&name=${name}&pretty=1`, true)
