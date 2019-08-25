@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     },
     main: {
         backgroundColor: KKY_BLUE,
-        height: 'auto',
+        height: '100vh',
     },
 })
 
