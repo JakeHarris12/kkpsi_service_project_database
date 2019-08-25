@@ -7,6 +7,7 @@ const KKY_GOLD = "#ffc61e"
 
 class ProjectForm extends Component{
 
+    // Set up blank data for a project
     state = {
         project: {
             title: '',
@@ -17,26 +18,30 @@ class ProjectForm extends Component{
         }
     }
 
+    // When the submit button is pressed, call the addProject function
     handleSumbit = (ev) => {
         ev.preventDefault()
         this.props.addProject(this.state.project)
+        // Return back to the main page
         window.location.href="/projects"
         return false
     }
 
+    // Returns back to the main page when the cancel button is pressed
     cancelSubmit = (ev) => {
         ev.preventDefault()
         window.location.href="/projects"
     }
 
+    // When a field gets updated, make sure it changes the actual data
     handleChange = (ev) => {
         const project = {...this.state.project}
         const target = ev.target
         project[target.name] = target.value
         this.setState({ project })
-        //console.log(this.state.project)
     }
 
+    // This is the HTML for the project form. It's gross right now
     render(){
         return(
             <div className={css(styles.projectformz)}>

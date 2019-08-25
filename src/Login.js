@@ -9,8 +9,11 @@ class Login extends Component{
 
     render(){
 
-        const link = `https://slack.com/oauth/authorize?scope=identity.basic,identity.email,identity.team,identity.avatar&client_id=${client_id}&redirect_uri=https%3A%2F%2Fkky-gamma-pi-service-log.firebaseapp.com`
+        // Link to our slack for authentication
+        // This redirects to http://localhost:3000 currently. This needs to change later.
+        const link = `https://slack.com/oauth/authorize?scope=identity.basic,identity.email,identity.team,identity.avatar&client_id=${client_id}&redirect_uri=http%3A%2F%2Flocalhost%3A3000`
 
+        // Renders the log in page
         return(
             <div className={css(styles.login)}>
                 <h1 className={css(styles.h)}>Welcome to the Kappa Kappa Psi Gamma Pi Service Project Database</h1>

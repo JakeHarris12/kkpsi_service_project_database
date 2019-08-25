@@ -24,6 +24,7 @@ yarn-error.log*
 
 package-lock.json
 
+# Slack stuff
 token.js
 
 # Ian's IDE files
