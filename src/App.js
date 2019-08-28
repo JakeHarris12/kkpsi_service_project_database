@@ -145,7 +145,20 @@ class App extends Component {
         const name = this.changeTitle(project.title)
 
         // Sends message to general channel in Slack
-        var postData = {text: `A new service project was just created called '${project.title}!' Check it out!`}
+        var postData = {
+            attachments: [
+                {
+                    fallback: "A link to the project would normally go here.",
+                    color: "#ffc61e",
+                    pretext: `Hey <!channel>! A new project was just created called '${project.title}!' Check it out here:`,
+                    author_icon: "http://flickr.com/icons/bobby.jpg",
+                    title: `${project.title}`,
+                    title_link: "https://api.slack.com/",
+                    text: `${project.desc}`
+                }
+            ]
+        }
+        //var postData = {text: `A new service project was just created called '${project.title}!' Check it out!`}
         var http = new XMLHttpRequest();
         http.onreadystatechange = function (){
             console.log(http.response)

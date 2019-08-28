@@ -73,7 +73,7 @@ class ProjectForm extends Component{
                             />
                         </p>
                         <p>
-                            <label htmlFor="desc" className={css(styles.formWords)}>Description</label>
+                            <label htmlFor="desc" className={css(styles.formWords)}>Short Description</label>
                             <input 
                                 type="text"
                                 name="desc"
