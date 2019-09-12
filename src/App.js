@@ -6,7 +6,7 @@ import Main from './Main'
 import ProjectForm from './ProjectForm'
 import Login from './Login'
 import base from './firebaseConfig'
-import token, {client_id, client_secret, general_hook} from './token'
+import token, {client_id, client_secret, general_hook, owner_id} from './token'
 
 class App extends Component {
 
@@ -81,7 +81,7 @@ class App extends Component {
                 accessToken: result.access_token,
                 code: code,
             }
-            console.log(result)
+            //console.log(result)
             // Store user data in session storage
             sessionStorage.setItem("user", JSON.stringify(data))
         } else {
@@ -107,6 +107,36 @@ class App extends Component {
         }
     }
 
+    // Handle removing the owner user from the channel when a project is added
+    handleChannelAdd = (response) => {
+        var result = JSON.parse(response)
+        var userJSON = JSON.parse(sessionStorage.getItem("user"))
+        if(result.ok === true && userJSON.id !== owner_id){
+            //Removes Owner of the app from the created channel
+            var removeUser = new XMLHttpRequest();
+            removeUser.onreadystatechange = function (){
+                console.log('this is the response i got from removeUser:')
+                console.log(removeUser.response)
+            }
+            removeUser.open("POST", `https://slack.com/api/channels.leave?token=${token}&channel=${result.channel.id}&pretty=1)`, true)
+            removeUser.send(null)
+
+            //Adds the user who created the project to the new channel
+            var channelAdd = new XMLHttpRequest()
+            channelAdd.onreadystatechange = function (){
+                //get channel data from the response from Slack
+                console.log("This is the response from add user")
+                console.log(channelAdd.response)
+            }
+        
+            //Get user data from sessionStorage
+            channelAdd.open("POST", `https://slack.com/api/channels.invite?token=${token}&channel=${result.channel.id}&user=${userJSON.id}&pretty=1`, true)
+            channelAdd.send(null)
+        }else if(result.ok !== true){
+            console.log("There was an error with channelAdd")
+        }
+    }
+
     // Handle the authentication process with Slack
     handleAuth = (code, callback) => {
         console.log("In handleAuth")
@@ -124,7 +154,7 @@ class App extends Component {
     }
 
     // Adds a new project to the list of project
-    addProject = (project) => {
+    addProject = (project, callback) => {
         // Get the current list of projects
         const projects = [...this.state.projects]
         // Add on the project that was passed in
@@ -158,7 +188,6 @@ class App extends Component {
                 }
             ]
         }
-        //var postData = {text: `A new service project was just created called '${project.title}!' Check it out!`}
         var http = new XMLHttpRequest();
         http.onreadystatechange = function (){
             console.log(http.response)
@@ -170,8 +199,11 @@ class App extends Component {
         // Creates new channel for the project in Slack
         var request = new XMLHttpRequest();
         request.onreadystatechange = function (){
-            console.log('this is the response that I got:')
+            console.log('this is the response that I got from create channel:')
             console.log(request.response)
+            if (request.readyState === 4 && request.status === 200)
+                callback(request.response)
+            
         }
         request.open("POST", `https://slack.com/api/channels.create?token=${token}&name=${name}&pretty=1`, true)
         request.send(null)
@@ -207,7 +239,7 @@ class App extends Component {
                     path="/create-project"
                     render={navProps => (
                         this.signedIn()
-                            ? <ProjectForm {...navProps} addProject={this.addProject} />
+                            ? <ProjectForm {...navProps} addProject={this.addProject} handleChannelAdd={this.handleChannelAdd}/>
                             : <Redirect to="/sign-in" />
                     )}
                 />
