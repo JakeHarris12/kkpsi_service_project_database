@@ -21,7 +21,7 @@ class ProjectForm extends Component{
     // When the submit button is pressed, call the addProject function
     handleSumbit = (ev) => {
         ev.preventDefault()
-        this.props.addProject(this.state.project)
+        this.props.addProject(this.state.project, this.props.handleChannelAdd)
         // Return back to the main page
         window.location.href="/projects"
         return false
@@ -73,7 +73,7 @@ class ProjectForm extends Component{
                             />
                         </p>
                         <p>
-                            <label htmlFor="desc" className={css(styles.formWords)}>Description</label>
+                            <label htmlFor="desc" className={css(styles.formWords)}>Short Description</label>
                             <input 
                                 type="text"
                                 name="desc"
