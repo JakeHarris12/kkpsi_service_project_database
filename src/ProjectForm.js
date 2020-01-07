@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import {css, StyleSheet} from 'aphrodite'
-import EditorConvertToHTML from './MarkdownEditor'
+import { Editor } from 'react-draft-wysiwyg';
+import { EditorState } from 'draft-js';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 const KKY_BLUE = "#09268a"
 const KKY_GOLD = "#ffc61e"
@@ -15,7 +17,14 @@ class ProjectForm extends Component{
             desc: '',
             num_people: '',
             date: '',
-        }
+        },
+        editorState: EditorState.createEmpty()
+    }
+
+    onEditorStateChange = (editorState) => {
+        this.setState({
+          editorState,
+        });
     }
 
     // When the submit button is pressed, call the addProject function
@@ -72,7 +81,7 @@ class ProjectForm extends Component{
                                 style={styles.form}
                             />
                         </p>
-                        <p>
+                        {/* <p>
                             <label htmlFor="desc" className={css(styles.formWords)}>Short Description</label>
                             <input 
                                 type="text"
@@ -81,7 +90,13 @@ class ProjectForm extends Component{
                                 onChange={this.handleChange}
                                 style={styles.form}
                             />
-                        </p>
+                        </p> */}
+                        <Editor
+                            initialEditorState={this.state.editorState}
+                            wrapperClassName={css(styles.editorWrapper)}
+                            editorClassName={css(styles.editor)}
+                            onEditorStateChange={this.onEditorStateChange}
+                        />
                         <p>
                             <label htmlFor="num_people" className={css(styles.formWords)}>How Many People are Needed?</label>
                             <input 
@@ -158,6 +173,12 @@ const styles = StyleSheet.create({
         fontSize: '1.2rem',
         fontColor: 'blue',
         textAlign: "center",
+    },
+    editor: {
+        padding: '1rem 1rem',
+    },
+    editorWrapper: {
+        backgroundColor: 'white',
     },
 })
 
