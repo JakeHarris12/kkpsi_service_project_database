@@ -56,70 +56,57 @@ class ProjectForm extends Component{
             <div className={css(styles.projectformz)}>
                 <main>
                     <div className={css(styles.top)}>
-                        <h1 className={css(styles.header)}>Project Form</h1>
-                        <h2 className={css(styles.header)}>Create a Project</h2>
+                        <button type="button" onClick={this.cancelSubmit} className={css(styles.button)}>Cancel</button>
+                        <div className={css(styles.title)}>
+                            <h2 className={css(styles.header)}>Project Form</h2>
+                            <h3 className={css(styles.header)}>Create a Project</h3>
+                        </div>
+                        <button type="button" onClick={this.handleSumbit} className={css(styles.button)}>Create</button>
                     </div>
                     <form className="ProjectCreate">
                         <p>
-                            <label htmlFor="title" className={css(styles.formWords)}>Title</label>
-                            <input
-                                type="text"
-                                name="title"
-                                value={this.state.project.title}
-                                onChange={this.handleChange}
-                                autoFocus
-                                style={styles.form}
-                            />
+                            <div className={css(styles.projectTitle)}>
+                                <label htmlFor="title" className={css(styles.title)}>Project Title: </label>
+                                <input
+                                    type="text"
+                                    name="title"
+                                    value={this.state.project.title}
+                                    onChange={this.handleChange}
+                                    autoFocus
+                                    className={css(styles.formTitle)}
+                                />
+                            </div>
                         </p>
-                        <p>
-                            <label htmlFor="author" className={css(styles.formWords)}>Who's Creating this Project?</label>
-                            <input
-                                type="text"
-                                name="author"
-                                value={this.state.project.author}
-                                onChange={this.handleChange}
-                                style={styles.form}
-                            />
-                        </p>
-                        {/* <p>
-                            <label htmlFor="desc" className={css(styles.formWords)}>Short Description</label>
-                            <input 
-                                type="text"
-                                name="desc"
-                                value={this.state.project.desc}
-                                onChange={this.handleChange}
-                                style={styles.form}
-                            />
-                        </p> */}
+                        <label className={css(styles.title)}>Project Description</label>
                         <Editor
                             initialEditorState={this.state.editorState}
                             wrapperClassName={css(styles.editorWrapper)}
                             editorClassName={css(styles.editor)}
                             onEditorStateChange={this.onEditorStateChange}
                         />
-                        <p>
-                            <label htmlFor="num_people" className={css(styles.formWords)}>How Many People are Needed?</label>
-                            <input 
-                                type="number"
-                                min="1"
-                                name="num_people"
-                                value={this.state.project.num_people}
-                                onChange={this.handleChange}
-                                style={styles.form}
-                            />
-                        </p>
-                        <p>
-                            <label htmlFor="date" className={css(styles.formWords)}>When Will the Project be Started?</label>
-                            <input
-                                type="date"
-                                name="date"
-                                value={this.state.project.date}
-                                onChange={this.handleChange}
-                                style={styles.form}
-                            />
-                        </p>
-                        <button type="button" onClick={this.cancelSubmit} className={css(styles.button)}>Cancel</button>
-                        <button type="button" onClick={this.handleSumbit} className={css(styles.button)}>Create</button>
+                        <div className={css(styles.bottomForm)}>
+                            <p>
+                                <label htmlFor="num_people" className={css(styles.formWords)}>How Many People are Needed?</label>
+                                <input 
+                                    type="number"
+                                    min="1"
+                                    name="num_people"
+                                    value={this.state.project.num_people}
+                                    onChange={this.handleChange}
+                                    style={styles.form}
+                                />
+                            </p>
+                            <p>
+                                <label htmlFor="date" className={css(styles.formWords)}>When Will the Project be Started?</label>
+                                <input
+                                    type="date"
+                                    name="date"
+                                    value={this.state.project.date}
+                                    onChange={this.handleChange}
+                                    style={styles.form}
+                                />
+                            </p>
+                        </div>
                     </form>
                 </main>
             </div>
@@ -136,10 +123,26 @@ const styles = StyleSheet.create({
         padding: '0.25rem',
         textAlign: "center",
     },
+    formTitle: {
+        flex: 'auto',
+        fontSize: '24px',
+        border: '2px solid grey',
+        padding: '0.25rem',
+        margin: '0.25rem'
+    },
+    projectTitle: {
+        display: 'flex',
+    },
+    title: {
+        fontSize: '24px',
+        color: 'white',
+        padding: '0.5rem 0.5rem',
+        fontFamily: 'Georgia',
+    },
     formWords: {
         color: 'white',
-        margin: '1',
-        padding: '1rem 1rem',
+        marginBottom: '1rem',
+        padding: '1rem',
         fontFamily: 'Georgia',
         textAlign: "center",
     },
@@ -152,33 +155,49 @@ const styles = StyleSheet.create({
     },
     header: {
         color: KKY_BLUE,
-        fontSize: '1.5rem',
         margin: '0',
         fontFamily: 'Georgia',
         textAlign: "center",
     },
     top:{
         backgroundColor: 'white',
+        display: 'flex',
+        justifyContent: 'space-between',
         alignItems: 'center',
         padding: '1rem 1rem',
         width: 'auto',
         textAlign: "center",
     },
     button: {
-        borderRadius: '1rem',
-        backgroundColor: 'white',
-        color: 'blue',
-        border: '2px solid grey',
-        fontFamily: 'Trebuchet MS',
-        fontSize: '1.2rem',
-        fontColor: 'blue',
-        textAlign: "center",
+        display:'inline-block',
+        backgroundColor: '#09268a',
+        padding:'0.7em 1.4em',
+        margin:'0 0.3em 0.3em 0',
+        border: 'solid white',
+        borderRadius:'0.15em',
+        boxSizing: 'border-box',
+        textDecoration:'none',
+        fontFamily:'Roboto,sans-serif',
+        textTransform: 'uppercase',
+        fontWeight:'400',
+        color:'#ffffff',
+        boxShadow: 'inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17)',
+        textAlign:'center',
+        ':hover' : {
+            borderColor: 'rgba(255,198,30,1)'
+        },
     },
     editor: {
-        padding: '1rem 1rem',
+        height: '250px',
+        overflow: 'auto',
     },
     editorWrapper: {
+        marginTop: '0.5rem',
         backgroundColor: 'white',
+    },
+    bottomForm: {
+        display: 'flex',
+        justifyContent: 'center',
     },
 })
 
