@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import {css, StyleSheet} from 'aphrodite'
 import { Editor } from 'react-draft-wysiwyg';
-import { EditorState } from 'draft-js';
+import { EditorState, convertToRaw } from 'draft-js';
+import draftToHtml from 'draftjs-to-html';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 const KKY_BLUE = "#09268a"
@@ -13,7 +14,7 @@ class ProjectForm extends Component{
     state = {
         project: {
             title: '',
-            author: '',
+            author: JSON.parse(sessionStorage.getItem("user")).name,
             desc: '',
             num_people: '',
             date: '',
@@ -25,6 +26,9 @@ class ProjectForm extends Component{
         this.setState({
           editorState,
         });
+        const project = {...this.state.project}
+        project['desc'] = draftToHtml(convertToRaw(editorState.getCurrentContent()))
+        this.setState({ project })
     }
 
     // When the submit button is pressed, call the addProject function
@@ -52,6 +56,7 @@ class ProjectForm extends Component{
 
     // This is the HTML for the project form. It's gross right now
     render(){
+        const { editorState } = this.state;
         return(
             <div className={css(styles.projectformz)}>
                 <main>
@@ -79,11 +84,19 @@ class ProjectForm extends Component{
                         </p>
                         <label className={css(styles.title)}>Project Description</label>
                         <Editor
-                            initialEditorState={this.state.editorState}
+                            editorState={editorState}
                             wrapperClassName={css(styles.editorWrapper)}
                             editorClassName={css(styles.editor)}
                             onEditorStateChange={this.onEditorStateChange}
+                            hashtag={{
+                                separator: ' ',
+                                trigger: '#',
+                            }}
                         />
+                        {/* <textarea
+                            disabled
+                                value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
+                        /> */}
                         <div className={css(styles.bottomForm)}>
                             <p>
                                 <label htmlFor="num_people" className={css(styles.formWords)}>How Many People are Needed?</label>
