@@ -5,6 +5,7 @@ import './App.css';
 import Main from './Main'
 import ProjectForm from './ProjectForm'
 import Login from './Login'
+import ProjectPage from './ProjectPage'
 import base from './firebaseConfig'
 import token, {client_id, client_secret, general_hook, owner_id} from './token'
 
@@ -22,6 +23,8 @@ class App extends Component {
             user: {
                 name: "This shouldn't be here!"
             },
+
+            project: {},
         }
     }
 
@@ -180,11 +183,11 @@ class App extends Component {
                 {
                     fallback: "A link to the project would normally go here.",
                     color: "#ffc61e",
-                    pretext: `Hey <!channel>! A new project was just created called '${project.title}!' Check it out here:`,
+                    pretext: `Hey y'all! A new project was just created called '${project.title}!' Check it out here:`,
                     author_icon: "http://flickr.com/icons/bobby.jpg",
                     title: `${project.title}`,
                     title_link: "https://api.slack.com/",
-                    text: `${project.desc}`
+                    text: ` Created by ${project.author}`
                 }
             ]
         }
@@ -207,6 +210,9 @@ class App extends Component {
         }
         request.open("POST", `https://slack.com/api/channels.create?token=${token}&name=${name}&pretty=1`, true)
         request.send(null)
+
+        this.setState({project})
+        this.props.history.push(`/projects/${name}`)
     }
 
     // Changes title of Project so Slack likes it better
@@ -220,6 +226,12 @@ class App extends Component {
     logout = () => {
         this.setState({loggedin: false})
         sessionStorage.clear()
+    }
+
+    handleProjectClick = (project) => {
+        this.setState({project})
+        const title = this.changeTitle(project.title)
+        this.props.history.push(`/projects/${title}`)
     }
 
     // Render everything on the page
@@ -244,15 +256,28 @@ class App extends Component {
                     )}
                 />
                 <Route
-                    path="/projects"
+                    exact path="/projects"
                     render={navProps => (
                         this.signedIn()
                             ? <Main {...navProps} 
                                     projects={this.state.projects}
                                     logout={this.logout} 
                                     user={this.state.user} 
+                                    handleProjectClick={this.handleProjectClick}
                                 />
                             : <Redirect to="/sign-in" />
+                    )}
+                />
+                <Route
+                    path='/projects/:projectName'
+                    render={navProps => (
+                        this.signedIn()
+                            ? <ProjectPage
+                                {...navProps}
+                                project={this.state.project}
+                                user={this.state.user}
+                                />
+                            : <Redirect to="/sign-in/" />
                     )}
                 />
                 <Route 

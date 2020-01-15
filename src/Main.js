@@ -22,7 +22,12 @@ class Main extends Component {
                 />
                 <div className={css(styles.body)}>
                     {
-                        this.props.projects.map(prj => <ProjectBox key={prj.title} project={prj} />)
+                        this.props.projects.map(prj => <ProjectBox 
+                                                            key={prj.title} 
+                                                            project={prj} 
+                                                            handleProjectClick={this.props.handleProjectClick}
+                                                        />
+                                                )
                     }
                 </div>
             </div>
@@ -35,7 +40,7 @@ const styles = StyleSheet.create({
         backgroundColor: KKY_BLUE,
         height: 'auto',
         alignItems: 'row',
-        justifyContent: 'left',
+        justifyContent: 'space-between',
         display: 'flex',
         flexDirection: 'columns',
         flexWrap: "wrap",

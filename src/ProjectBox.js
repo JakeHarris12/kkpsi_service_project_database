@@ -6,15 +6,20 @@ const KKY_GOLD = "#ffc61e"
 
 class ProjectBox extends Component{
 
+    handleClick = () => {
+        this.props.handleProjectClick(this.props.project)
+    }
+
     // This component represents the boxes on the main page that represent projects
     render(){
 
         const project = this.props.project
 
         return(
-            <div className={css(styles.container)}>
+            <div className={css(styles.container)} 
+                onClick={this.handleClick}
+            >
                 <h3>{project.title} by {project.author}</h3>
-                <p>{project.desc}</p>
                 <p>Number of people needed: {project.num_people}</p>
                 <p>Project start date: {project.date}</p>
             </div>

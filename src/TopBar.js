@@ -22,7 +22,6 @@ class TopBar extends Component{
             <div className={css(styles.topbar)}>
                 <div className={css(styles.header)}>
                     <button className={css(styles.button)} onClick={this.handleClick}>Add a Project</button>
-                    <h3>Hello, {this.props.user.name}!</h3>
                     <button className={css(styles.button)} onClick={this.handleLogout}>Logout</button>
                 </div>
                 <div className={css(styles.logo)}>
@@ -41,6 +40,7 @@ const styles = StyleSheet.create({
         fontSize: '1.5rem',
         margin: '0',
         fontFamily: 'Georgia',
+        textAlign: 'center',
     },
     topbar: {
         backgroundColor: 'white',
@@ -49,22 +49,29 @@ const styles = StyleSheet.create({
         width: 'auto',
     },
     logo: {
-        height: '80px',
-        wight: '80px',
+        height: '100px',
+        wight: '100px',
         display: "block",
         margin: "auto",
     },
     button: {
-        display: 'block',
-        borderRadius: '1rem',
-        backgroundColor: KKY_BLUE,
-        color: 'white',
-        cursor: 'pointer',
-        outline: 0,
-        width: '80px',
+        display:'inline-block',
+        backgroundColor: '#09268a',
+        padding:'0.7em 1.4em',
+        margin:'0 0.3em 0.3em 0',
+        border: 'solid white',
+        borderRadius:'0.15em',
+        boxSizing: 'border-box',
+        textDecoration:'none',
+        fontFamily:'Roboto,sans-serif',
+        textTransform: 'uppercase',
+        fontWeight:'400',
+        color:'#ffffff',
+        boxShadow: 'inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17)',
+        textAlign:'center',
         ':hover' : {
-            backgroundColor: 'MediumBlue',
-        }
+            borderColor: 'rgba(255,198,30,1)'
+        },
     },
     header: {
         display: 'flex',
